@@ -30,7 +30,7 @@ public class SkipratioCmd extends AdminCommand
     {
         this.name = "setskip";
         this.help = "sets a server-specific skip percentage";
-        this.arguments = "<0 - 100>";
+        this.arguments = "<ratio>";
         this.aliases = bot.getConfig().getAliases(this.name);
     }
     

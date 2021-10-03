@@ -15,6 +15,7 @@
  */
 package com.jagrosh.jmusicbot;
 
+import com.jagrosh.jdautilities.command.CommandClient;
 import com.jagrosh.jdautilities.command.CommandClientBuilder;
 import com.jagrosh.jdautilities.commons.waiter.EventWaiter;
 import com.jagrosh.jdautilities.examples.command.*;
@@ -25,6 +26,7 @@ import com.jagrosh.jmusicbot.commands.music.*;
 import com.jagrosh.jmusicbot.commands.owner.*;
 import com.jagrosh.jmusicbot.entities.Prompt;
 import com.jagrosh.jmusicbot.gui.GUI;
+import com.jagrosh.jmusicbot.interactions.InteractionManager;
 import com.jagrosh.jmusicbot.settings.SettingsManager;
 import com.jagrosh.jmusicbot.utils.OtherUtil;
 import java.awt.Color;
@@ -166,7 +168,11 @@ public class JMusicBot
         }
         
         log.info("Loaded config from " + config.getConfigLocation());
-        
+
+        CommandClient client = cb.build();
+        InteractionManager interactionManager = new InteractionManager(client);
+        bot.setInteractionManager(interactionManager);
+
         // attempt to log in and start
         try
         {
@@ -176,7 +182,7 @@ public class JMusicBot
                     .setActivity(nogame ? null : Activity.playing("loading..."))
                     .setStatus(config.getStatus()==OnlineStatus.INVISIBLE || config.getStatus()==OnlineStatus.OFFLINE 
                             ? OnlineStatus.INVISIBLE : OnlineStatus.DO_NOT_DISTURB)
-                    .addEventListeners(cb.build(), waiter, new Listener(bot))
+                    .addEventListeners(client, waiter, new Listener(bot), interactionManager.getListener())
                     .setBulkDeleteSplittingEnabled(true)
                     .build();
             bot.setJDA(jda);

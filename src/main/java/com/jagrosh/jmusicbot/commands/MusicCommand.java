@@ -49,10 +49,6 @@ public abstract class MusicCommand extends Command
         TextChannel tchannel = settings.getTextChannel(event.getGuild());
         if(tchannel!=null && !event.getTextChannel().equals(tchannel))
         {
-            try 
-            {
-                event.getMessage().delete().queue();
-            } catch(PermissionException ignore){}
             event.replyInDm(event.getClient().getError()+" You can only use that command in "+tchannel.getAsMention()+"!");
             return;
         }

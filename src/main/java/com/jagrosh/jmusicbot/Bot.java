@@ -23,6 +23,7 @@ import com.jagrosh.jmusicbot.audio.AudioHandler;
 import com.jagrosh.jmusicbot.audio.NowplayingHandler;
 import com.jagrosh.jmusicbot.audio.PlayerManager;
 import com.jagrosh.jmusicbot.gui.GUI;
+import com.jagrosh.jmusicbot.interactions.InteractionManager;
 import com.jagrosh.jmusicbot.playlist.PlaylistLoader;
 import com.jagrosh.jmusicbot.settings.SettingsManager;
 import java.util.Objects;
@@ -48,6 +49,7 @@ public class Bot
     private boolean shuttingDown = false;
     private JDA jda;
     private GUI gui;
+    private InteractionManager interactionManager;
     
     public Bot(EventWaiter waiter, BotConfig config, SettingsManager settings)
     {
@@ -157,5 +159,13 @@ public class Bot
     public void setGUI(GUI gui)
     {
         this.gui = gui;
+    }
+
+    public InteractionManager getInteractionManager() {
+        return interactionManager;
+    }
+
+    public void setInteractionManager(InteractionManager interactionManager) {
+        this.interactionManager = interactionManager;
     }
 }

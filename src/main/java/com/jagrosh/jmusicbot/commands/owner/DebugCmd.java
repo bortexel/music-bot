@@ -77,11 +77,7 @@ public class DebugCmd extends OwnerCommand
                 .append("\n  Guilds = ").append(event.getJDA().getGuildCache().size())
                 .append("\n  Users = ").append(event.getJDA().getUserCache().size());
         sb.append("\n```");
-        
-        if(event.isFromType(ChannelType.PRIVATE) 
-                || event.getSelfMember().hasPermission(event.getTextChannel(), Permission.MESSAGE_ATTACH_FILES))
-            event.getChannel().sendFile(sb.toString().getBytes(), "debug_information.txt").queue();
-        else
-            event.reply("Debug Information: " + sb.toString());
+
+        event.reply("Debug Information: " + sb);
     }
 }
